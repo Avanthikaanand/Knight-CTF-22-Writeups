@@ -1,0 +1,8 @@
+# Challenge Descritpion
+` Link:http://wayback.kshackzone.com/index.html `
+
+# Solution:
++The challenge opens to a dicord.js application
++ When we view the page source we can find a a github link: https://github.com/KCTF202x/repo101
++ We will look for the commits for the github link: https://github.com/KCTF202x/repo101/commits
++ There we obtained the ` flag: KCTF{version_control_is_awesome} `
