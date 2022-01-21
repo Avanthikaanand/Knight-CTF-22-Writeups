@@ -1,0 +1,14 @@
+#Challenge Description
+
+`Challenge link: http://198.211.115.81:5001/`
+
+Hint: You have to think out side from '/user/'.
+
+##Solution:
++ We can see a set of username and password with id 1 to 4
++ When we gave the url : `http://198.211.115.81:5001/user/1`, it gave the username and password of id=1
+  Similarly it gives the username and password for id=2,3,4
++ As we gave `http://198.211.115.81:5001/user/0` nothing pops up
++ As the title of the challenges says zero is no the limit we look into negative values
++ When we gave the url as `http://198.211.115.81:5001/user/-1` we obtained the flag.
++ `Flag:KCTF{tHeRe_1s_n0_l1m1t}`
