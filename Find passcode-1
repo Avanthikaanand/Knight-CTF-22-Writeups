@@ -4,16 +4,5 @@ Hint: Hi Serafin, I learned something new today.
 I build this website for you to verify our KnightCTF 2022 pass code. You can view the source code by sending the source param.
 
 #Solution:
-+ As suggested in the hint, we check for the source parameter.
-  https://find-pass-code-one.kshackzone.com/?source
-+ There we can see a javascript code which is jsfuck encoded
-+ We decode the encoded code and obtain the following decoded javascript code.
-  ```
-  if (document.forms[0].username.value == "83fe2a837a4d4eec61bd47368d86afd6" && document.forms[0].password.value == "a3fa67479e47116a4d6439120400b057") 
-  document.location = "150484514b6eeb1d99da836d95f6671d.php"
-  ```
-+ We get the document location from the above code and give it in the url as follows:
-  ` https://obsfication.kshackzone.com/150484514b6eeb1d99da836d95f6671d.php `
-+ Thus we obtain the ` flag: KCTF{0bfuscat3d_J4v4Scr1pt_aka_JSFuck} `
 
 
