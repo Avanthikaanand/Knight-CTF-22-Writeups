@@ -4,5 +4,10 @@ Hint: Hi Serafin, I learned something new today.
 I build this website for you to verify our KnightCTF 2022 pass code. You can view the source code by sending the source param.
 
 #Solution:
++ Find we check for the source param:  http://find-pass-code-one.kshackzone.com/?source
++ There we can see the php code of the page
++ We can solve the challenge using loose comparison vulnerability
++ We will open the page in burp and change it to GET to POST
++ In the response body, we will give "pass_code[]=0"
 
 
