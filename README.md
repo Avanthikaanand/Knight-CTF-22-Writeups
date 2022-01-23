@@ -137,5 +137,57 @@ Hint: You have to think out side from '/user/'.
 + When we gave the url as `http://198.211.115.81:5001/user/-1` we obtained the flag.
 + `Flag:KCTF{tHeRe_1s_n0_l1m1t}`
 
-# 7.
+# 7. Find pass code-2
+## Challenge description:
+ ` link: http://find-pass-code-two.kshackzone.com/`
+ Hi Serafin, I think you already know how you can view the source code :P
 
+## Solution:
++First we will look for the source of the page:  `http://find-pass-code-two.kshackzone.com/?source`
++ There we can find the following php code
+```
+<?php
+require "flag.php";
+$old_pass_codes = array("0e215962017", "0e730083352", "0e807097110", "0e840922711");
+$old_pass_flag = false;
+if (isset($_POST["pass_code"]) && !is_array($_POST["pass_code"])) {
+    foreach ($old_pass_codes as $old_pass_code) {
+        if ($_POST["pass_code"] === $old_pass_code) {
+            $old_pass_flag = true;
+            break;
+        }
+    }
+    if ($old_pass_flag) {
+        echo "Sorry ! It's an old pass code.";
+    } else if ($_POST["pass_code"] == md5($_POST["pass_code"])) {
+        echo "KCTF Flag : {$flag}";
+    } else {
+        echo "Oh....My....God. You entered the wrong pass code.<br>";
+    }
+}
+if (isset($_GET["source"])) {
+    print show_source(__FILE__);
+}
+
+?>
+```
++ When comparing strings using ==, PHP will try to attempt to parse the string as a number. Hence, strings like "0e1" and "0e2" will be considered as the value 0 in scientific notation. We need to find a string which both the string itself and its MD5 hash match the pattern 0e[0-9]+.
+
+$old_pass_codes has blacklisted some known strings that have this property.
+
+Searching online, https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Type%20Juggling/README.md provided another string – 0e1137126905 – that also has this property but not blacklisted.
+
+Submitting this code, and we can get the flag.
++ `KCTF Flag : KCTF{ShOuD_wE_cOmPaRe_MD5_LiKe_ThAt__Be_SmArT}`
+
+# 8. Can you be admin?
+## challenge description:
+ Admin & get the Flag.
+`link: http://can-you-be-admin.kshackzone.com/`
+
+## Solution:
++ While opening the site we can see that only knight squad agents have the access to the website
++ So we will change the `User-agent: KnightSquad` in burp
++ Then in the response header we can see that `This page refers to knight squad home network. So, Only Knight Squad home network can access this page.`
++ So, we will add `referer: localhost`
++
