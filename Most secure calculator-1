@@ -5,4 +5,12 @@ Hint: Hi Selina,
         I have hidden some interesting things in flag.txt and I know you can read that file.
 
 # solution:
-+ 
++ The webpage uses 'eval' to do calculations
++ Flag is stored in flag.txt
++ Submitting 'system("cat flag.txt");' gives us the flag
++ ```Flag: KCTF{WaS_mY_cAlCuLaToR_sAfE}```
+
+
+Reference:
++ PHP Eval: https://www.php.net/manual/en/function.eval.php
++ system() in php: https://www.php.net/manual/en/function.system.php
