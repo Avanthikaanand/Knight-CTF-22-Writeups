@@ -191,3 +191,33 @@ Submitting this code, and we can get the flag.
 + Then in the response header we can see that `This page refers to knight squad home network. So, Only Knight Squad home network can access this page.`
 + So, we will add `referer: localhost`
 +
+
+# 9. Find pass code 1
+## challenge description:
+link:http://find-pass-code-one.kshackzone.com/
+hint:Hi Serafin, I learned something new today. 
+I build this website for you to verify our KnightCTF 2022 pass code. You can view the source code by sending the source param
+
+# Solution:
++ Find we check the url source: http://find-pass-code-one.kshackzone.com/?source
++ There we can see the following php code
+```
+<?php
+require "flag.php";
+if (isset($_POST["pass_code"])) {
+    if (strcmp($_POST["pass_code"], $flag) == 0 ) {
+        echo "KCTF Flag : {$flag}";
+    } else {
+        echo "Oh....My....God. You entered the wrong pass code.<br>";
+    }
+}
+if (isset($_GET["source"])) {
+    print show_source(__FILE__);
+}
+
+?>
+```
++ Looking through the php manual about strcmp we can see it's vulnerable to a bypass if not used properly.To put it simply it doesn't matter what is the pass_code or the flag as long as their strcmp gets us a 0 ! so we just need something to return "0" or "NULL"
++ In burp suite, change the request method to `POST`
++ And we can change give the request as `pass_code[]= ` and send the request. Thus we obtain the flag in the response.
++ Flag: `KCTF{ShOuLd_We_UsE_sTrCmP_lIkE_tHaT}`
