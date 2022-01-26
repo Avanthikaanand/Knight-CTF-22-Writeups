@@ -190,7 +190,7 @@ Submitting this code, and we can get the flag.
 + So we will change the `User-agent: KnightSquad` in burp
 + Then in the response header we can see that `This page refers to knight squad home network. So, Only Knight Squad home network can access this page.`
 + So, we will add `referer: localhost`
-+
++ 
 
 # 9. Find pass code 1
 ## challenge description:
